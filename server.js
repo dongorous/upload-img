@@ -10,7 +10,6 @@ const fs = require('fs');
 
 
 
-const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors())
@@ -45,7 +44,7 @@ app.post('/upload', MuiltiPartyMiddleware, (req, res) =>{
         
         res.status(200).json({
             uploaded: true,
-            url: `http://localhost:5000/uploads/${TempFile.name}`
+            url: `https://ck-upload.herokuapp.com/uploads/${TempFile.name}`
         });
 
         if(err) return console.log(err);
@@ -54,4 +53,4 @@ app.post('/upload', MuiltiPartyMiddleware, (req, res) =>{
 })
 
 
-app.listen(PORT, console.log(`Server Started at PORT :${PORT}`))
+app.listen(console.log(`Server Started at PORT : 5000`))
