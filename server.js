@@ -8,8 +8,7 @@ const path = require('path');
 
 const fs = require('fs');
 
-
-
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors())
@@ -36,15 +35,13 @@ app.post('/upload', MuiltiPartyMiddleware, (req, res) =>{
 
    const targetPathUrl = path.join(__dirname,"./uploads/"+TempFile.name);
 
-   console.log(TempFile, "aaaaaaaaaaaaaaaaaaaaa")
-
    if(path.extname(TempFile.originalFilename).toLowerCase() === ".png" || ".jpg" || ".jpeg"){
      
     fs.rename(TempPathfile, targetPathUrl, err =>{
         
         res.status(200).json({
             uploaded: true,
-            url: `https://ck-upload.herokuapp.com/uploads/${TempFile.name}`
+            url: `${PORT}${TempFile.name}`
         });
 
         if(err) return console.log(err);
@@ -53,4 +50,4 @@ app.post('/upload', MuiltiPartyMiddleware, (req, res) =>{
 })
 
 
-app.listen(console.log(`Server Started at PORT : 5000`))
+app.listen(PORT, console.log(`Server Started at PORT :${PORT}`))
